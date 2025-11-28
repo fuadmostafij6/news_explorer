@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           displaySmall: TextStyle(color: AppColor.textColor),
           titleLarge: TextStyle(color: AppColor.textColor),
           titleMedium: TextStyle(color: AppColor.textColor),
-          titleSmall: TextStyle(color: AppColor.textColor),
+          titleSmall: TextStyle(color: AppColor.textDimColor),
           headlineLarge: TextStyle(color: AppColor.textColor),
           headlineMedium: TextStyle(color: AppColor.textColor),
           headlineSmall: TextStyle(color: AppColor.textColor),

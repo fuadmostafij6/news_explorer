@@ -45,6 +45,8 @@ dependencies:
   freezed_annotation: ^3.1.0
   lottie: ^3.3.1
   phosphor_flutter: ^2.1.0
+  figma_squircle: ^0.6.3
+  faker: ^2.2.0
 
 dev_dependencies:
   flutter_test:
