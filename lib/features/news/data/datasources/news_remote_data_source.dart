@@ -11,7 +11,11 @@ class NewsRemoteResponse {
 
 abstract class NewsRemoteDataSource {
   Future<NewsRemoteResponse> fetchNews(String category, String? nextPage);
-  Future<NewsRemoteResponse> searchNews(String query, String? nextPage);
+  Future<NewsRemoteResponse> searchNews(
+    String query,
+    String? nextPage,
+    String category,
+  );
 }
 
 class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
@@ -36,13 +40,13 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
         },
       );
 
-      final results = (res.data['results'] as List)
-          .map((e) => NewsModel.fromJson(e))
+      final results = (res.data['results'] as List? ?? [])
+          .map((e) => NewsModel.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList();
 
       return NewsRemoteResponse(
         results: results,
-        nextPage: res.data['nextPage'],
+        nextPage: res.data['nextPage'] as String?,
       );
     } catch (_) {
       throw ServerException();
@@ -50,24 +54,29 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   }
 
   @override
-  Future<NewsRemoteResponse> searchNews(String query, String? nextPage) async {
+  Future<NewsRemoteResponse> searchNews(
+    String query,
+    String? nextPage,
+    String category,
+  ) async {
     try {
       final res = await dio.get(
         'https://newsdata.io/api/1/news',
         queryParameters: {
           'apikey': apiKey,
           'q': query,
+          'category': category,
           if (nextPage != null) 'page': nextPage,
         },
       );
 
-      final results = (res.data['results'] as List)
-          .map((e) => NewsModel.fromJson(e))
+      final results = (res.data['results'] as List? ?? [])
+          .map((e) => NewsModel.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList();
 
       return NewsRemoteResponse(
         results: results,
-        nextPage: res.data['nextPage'],
+        nextPage: res.data['nextPage'] as String?,
       );
     } catch (_) {
       throw ServerException();

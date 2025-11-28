@@ -10,6 +10,7 @@ class NewsEntity {
   final List<String>? creator;
   final List<String>? country;
   final List<String>? category;
+  final String? source;
 
   NewsEntity({
     required this.articleId,
@@ -23,5 +24,6 @@ class NewsEntity {
     this.creator,
     this.country,
     this.category,
+    this.source,
   });
 }

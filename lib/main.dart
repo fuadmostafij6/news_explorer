@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:news_app/core/di/app_providers.dart';
 import 'package:news_app/core/utils/color.dart';
 
 import 'core/route/app_route.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  final newsBox = await Hive.openBox(newsCacheBoxName);
+
+  runApp(
+    ProviderScope(
+      overrides: [hiveNewsBoxProvider.overrideWithValue(newsBox)],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

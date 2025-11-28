@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/features/news/domain/entities/news_entity.dart';
+import 'package:news_app/features/news/presentation/pages/news_detail_page.dart';
 import 'package:news_app/features/news/presentation/pages/news_page.dart';
+import 'package:news_app/features/news/presentation/pages/search_page.dart';
 import 'package:news_app/features/news/presentation/pages/splash.dart';
 
 class AppRoute {
   AppRoute._();
   static const String splash = "/";
   static const String home = "/home";
-  static String search = "/search";
+  static const String detail = "/detail";
+  static const String search = "/search";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -38,6 +42,17 @@ class AppRoute {
               ),
             );
           },
+          settings: settings,
+        );
+      case detail:
+        final article = settings.arguments;
+        return MaterialPageRoute(
+          builder: (_) => NewsDetailPage(article: article as NewsEntity),
+          settings: settings,
+        );
+      case search:
+        return MaterialPageRoute(
+          builder: (_) => const SearchPage(),
           settings: settings,
         );
       default:

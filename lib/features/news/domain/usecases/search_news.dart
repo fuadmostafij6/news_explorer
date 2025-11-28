@@ -3,20 +3,29 @@ import '../repository/news_repository.dart';
 import '../entities/news_entity.dart';
 
 class SearchNewsUseCase
-    implements UseCase<(List<NewsEntity>, String?), SearchParams> {
-  final NewsRepository repository;
-
+    implements UseCase<(List<NewsEntity>, String?), SearchNewsParams> {
   SearchNewsUseCase(this.repository);
 
+  final NewsRepository repository;
+
   @override
-  Future<(List<NewsEntity>, String?)> call(SearchParams params) {
-    return repository.searchNews(params.query, params.nextPage);
+  Future<(List<NewsEntity>, String?)> call(SearchNewsParams params) {
+    return repository.searchNews(
+      params.query,
+      params.nextPage,
+      params.category,
+    );
   }
 }
 
-class SearchParams {
+class SearchNewsParams {
+  const SearchNewsParams({
+    required this.query,
+    required this.category,
+    this.nextPage,
+  });
+
   final String query;
   final String? nextPage;
-
-  SearchParams(this.query, this.nextPage);
+  final String category;
 }

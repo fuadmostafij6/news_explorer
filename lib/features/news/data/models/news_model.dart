@@ -13,6 +13,7 @@ class NewsModel extends NewsEntity {
     super.creator,
     super.country,
     super.category,
+    super.source,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +29,7 @@ class NewsModel extends NewsEntity {
       creator: (json['creator'] as List?)?.map((e) => e.toString()).toList(),
       country: (json['country'] as List?)?.map((e) => e.toString()).toList(),
       category: (json['category'] as List?)?.map((e) => e.toString()).toList(),
+      source: json['source_id'] ?? json['source'],
     );
   }
 
@@ -43,5 +45,23 @@ class NewsModel extends NewsEntity {
     "creator": creator,
     "country": country,
     "category": category,
+    "source": source,
   };
+
+  factory NewsModel.fromEntity(NewsEntity entity) {
+    return NewsModel(
+      articleId: entity.articleId,
+      title: entity.title,
+      description: entity.description,
+      content: entity.content,
+      link: entity.link,
+      imageUrl: entity.imageUrl,
+      pubDate: entity.pubDate,
+      keywords: entity.keywords,
+      creator: entity.creator,
+      country: entity.country,
+      category: entity.category,
+      source: entity.source,
+    );
+  }
 }

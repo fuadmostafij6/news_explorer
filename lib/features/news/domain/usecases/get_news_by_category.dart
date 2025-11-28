@@ -3,20 +3,34 @@ import '../repository/news_repository.dart';
 import '../entities/news_entity.dart';
 
 class GetNewsByCategoryUsecase
-    implements UseCase<(List<NewsEntity>, String?), Params> {
-  final NewsRepository repo;
+    implements UseCase<(List<NewsEntity>, String?), GetNewsByCategoryParams> {
+  GetNewsByCategoryUsecase(this.repository);
 
-  GetNewsByCategoryUsecase(this.repo);
+  final NewsRepository repository;
 
   @override
-  Future<(List<NewsEntity>, String?)> call(Params params) async {
-    return repo.getNewsByCategory(params.category, params.nextPage);
+  Future<(List<NewsEntity>, String?)> call(
+    GetNewsByCategoryParams params,
+  ) {
+    return repository.getNewsByCategory(
+      params.category,
+      params.nextPage,
+      pageId: params.pageId,
+      resetCache: params.resetCache,
+    );
   }
 }
 
-class Params {
+class GetNewsByCategoryParams {
+  const GetNewsByCategoryParams({
+    required this.category,
+    this.nextPage,
+    required this.pageId,
+    this.resetCache = false,
+  });
+
   final String category;
   final String? nextPage;
-
-  Params(this.category, this.nextPage);
+  final String pageId;
+  final bool resetCache;
 }
