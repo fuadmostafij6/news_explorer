@@ -4,10 +4,10 @@ A Flutter news application built with Clean Architecture, featuring offline cach
 
 ## 🎥 Demo
 
-<video width="100%" controls>
-  <source src="video/newsExplorer.mov" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+> **Note:** A demo video (`video/newsExplorer.mov`) is available locally. Due to file size limitations, it's not included in the repository. You can:
+> - Host it on YouTube/Vimeo and embed it here
+> - Use Git LFS to store large files
+> - Convert it to a GIF for smaller file size
 
 ## 📱 Features
 
