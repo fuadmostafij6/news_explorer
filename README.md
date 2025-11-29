@@ -22,27 +22,17 @@ A Flutter news application built with Clean Architecture, featuring offline cach
 
 <div align="center">
   
-  <video width="100%" controls style="max-width: 800px;">
-    <source src="video/newsExplorer.mp4" type="video/mp4">
-    <source src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/video/newsExplorer.mp4" type="video/mp4">
+  <video width="100%" controls style="max-width: 800px; border-radius: 8px;">
+    <source src="https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/lib/video/newsExplorer.mp4" type="video/mp4">
     Your browser does not support the video tag. 
-    <a href="video/newsExplorer.mp4">Download the video</a> to watch it.
+    <a href="https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/lib/video/newsExplorer.mp4">Download the video</a> to watch it.
   </video>
   
   <br/><br/>
   
-  **📥 [Direct Download Link](video/newsExplorer.mp4)** (22MB)
+  **📥 [Direct Download Link](https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/lib/video/newsExplorer.mp4)** (22MB)
   
 </div>
-
-> **⚠️ Note:** GitHub has limitations displaying large videos (>10MB) inline. If the video doesn't play above:
-> - Click the download link to view it locally
-> - Or host it on [YouTube](https://youtube.com) or [Vimeo](https://vimeo.com) and embed it here
-> 
-> **To embed from YouTube/Vimeo:** Replace the video tag above with:
-> ```html
-> <iframe width="800" height="450" src="YOUR_YOUTUBE_OR_VIMEO_EMBED_URL" frameborder="0" allowfullscreen></iframe>
-> ```
 
 ## 📱 Features
 
