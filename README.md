@@ -5,15 +5,15 @@ A Flutter news application built with Clean Architecture, featuring offline cach
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="screenshot/image1.jpeg" alt="Screenshot 1" width="200"/>
-  <img src="screenshot/image2.jpeg" alt="Screenshot 2" width="200"/>
-  <img src="screenshot/image3.jpeg" alt="Screenshot 3" width="200"/>
+  <img src="screenshots/image1.jpeg" alt="Screenshot 1" width="200"/>
+  <img src="screenshots/image2.jpeg" alt="Screenshot 2" width="200"/>
+  <img src="screenshots/image3.jpeg" alt="Screenshot 3" width="200"/>
 </div>
 
 <div align="center">
-  <img src="screenshot/image4.jpeg" alt="Screenshot 4" width="200"/>
-  <img src="screenshot/image5.jpeg" alt="Screenshot 5" width="200"/>
-  <img src="screenshot/image6.jpeg" alt="Screenshot 6" width="200"/>
+  <img src="screenshots/image4.jpeg" alt="Screenshot 4" width="200"/>
+  <img src="screenshots/image5.jpeg" alt="Screenshot 5" width="200"/>
+  <img src="screenshots/image6.jpeg" alt="Screenshot 6" width="200"/>
 </div>
 
 ## 🎥 Demo
