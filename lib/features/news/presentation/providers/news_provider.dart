@@ -195,11 +195,27 @@ class NewsNotifier extends Notifier<NewsState> {
   void onQueryChanged(String query) {
     final trimmed = query.trim();
     _searchDebounce?.cancel();
-    _searchDebounce = Timer(const Duration(milliseconds: 350), () {
-      if (trimmed == state.query) return;
-      state = state.copyWith(query: trimmed);
-      loadInitial();
-    });
+    
+    // Update query immediately for UI feedback
+    if (trimmed != state.query) {
+      state = state.copyWith(
+        query: trimmed,
+        searchResults: [],
+        searchNextPage: null,
+        clearSearchError: true,
+      );
+    }
+    
+    // Debounce the actual API call
+    if (trimmed.isEmpty) {
+      clearSearch();
+    } else {
+      _searchDebounce = Timer(const Duration(milliseconds: 500), () {
+        if (trimmed == state.query && trimmed.isNotEmpty) {
+          loadInitial();
+        }
+      });
+    }
   }
 
   void clearSearch() {
@@ -273,6 +289,58 @@ class NewsNotifier extends Notifier<NewsState> {
           isOffline: !isOnline,
         );
       }
+    } on ServerException {
+      // Server exception - try cache as fallback (both online and offline)
+      try {
+        if (state.isSearching) {
+          final cached = await _repository.getCachedNews();
+          final filtered = cached
+              .where(
+                (e) =>
+                    (e.title ?? '').toLowerCase().contains(state.query.toLowerCase()),
+              )
+              .toList();
+          if (filtered.isNotEmpty) {
+            state = state.copyWith(
+              searchResults: replace ? filtered : [...state.searchResults, ...filtered],
+              isSearchLoading: false,
+              isSearchLoadingMore: false,
+              hasMoreSearch: false,
+              searchNextPage: null,
+              isOffline: !isOnline,
+              clearSearchError: true,
+            );
+            return;
+          }
+        } else {
+          // Try to serve cached news
+          await _serveOfflinePage(replace: replace);
+          return;
+        }
+      } catch (_) {
+        // Cache also failed, show error
+      }
+      
+      // If we reach here, cache is not available or empty
+      if (state.isSearching) {
+        state = state.copyWith(
+          isSearchLoading: false,
+          isSearchLoadingMore: false,
+          searchError: isOnline
+              ? 'Unable to search. Showing cached results if available.'
+              : 'No cached search results available.',
+          isOffline: !isOnline,
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          isLoadingMore: false,
+          error: isOnline
+              ? 'Unable to load news. Please check your connection and try again.'
+              : 'No cached news available.',
+          isOffline: !isOnline,
+        );
+      }
     } on CacheException {
       if (state.isSearching) {
         state = state.copyWith(
@@ -284,7 +352,7 @@ class NewsNotifier extends Notifier<NewsState> {
       } else {
         await _serveOfflinePage(replace: replace);
       }
-    } catch (_) {
+    } catch (e) {
       if (state.isSearching) {
         state = state.copyWith(
           isSearchLoading: false,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
 import 'package:news_app/core/route/app_route.dart';
 import 'package:news_app/core/utils/assets.dart';
 
@@ -11,25 +10,15 @@ class Splash extends StatefulWidget {
   State<Splash> createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> with TickerProviderStateMixin {
-  late AnimationController _controller;
-
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    _navigateToHome();
   }
 
   void _navigateToHome() {
-    // Pause animation at the end for smooth Hero transition
-    _controller.stop();
-    Future.delayed(const Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         Navigator.of(context).pushReplacementNamed(AppRoute.home);
       }
@@ -73,19 +62,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
               },
               child: Material(
                 color: Colors.transparent,
-                child: Lottie.asset(
+                child: Image.asset(
                   AppAssets.logo,
                   height: 250,
                   width: 250,
                   fit: BoxFit.contain,
-                  controller: _controller,
-                  onLoaded: (composition) {
-                    _controller
-                      ..duration = composition.duration
-                      ..forward().then((_) {
-                        _navigateToHome();
-                      });
-                  },
                 ),
               ),
             ),

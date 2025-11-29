@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:news_app/core/route/app_route.dart';
 import 'package:news_app/core/utils/assets.dart';
 import 'package:news_app/core/utils/color.dart';
@@ -15,20 +14,40 @@ class NewsPage extends ConsumerStatefulWidget {
   ConsumerState<NewsPage> createState() => _NewsPageState();
 }
 
-class _NewsPageState extends ConsumerState<NewsPage> {
+class _NewsPageState extends ConsumerState<NewsPage> with WidgetsBindingObserver {
   late final ScrollController _scrollController;
+  bool _wasSearching = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController()..addListener(_onScroll);
+    WidgetsBinding.instance.addObserver(this);
+    _wasSearching = ref.read(newsNotifierProvider).isSearching;
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _checkAndRefresh();
+    }
+  }
+
+  void _checkAndRefresh() {
+    final currentState = ref.read(newsNotifierProvider);
+    // If we were searching but now we're not, refresh the news feed
+    if (_wasSearching && !currentState.isSearching) {
+      _wasSearching = false;
+      ref.read(newsNotifierProvider.notifier).refresh();
+    }
   }
 
   void _onScroll() {
@@ -41,6 +60,16 @@ class _NewsPageState extends ConsumerState<NewsPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(newsNotifierProvider);
+    
+    // Check if we just came back from search
+    if (_wasSearching && !state.isSearching) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _wasSearching = false;
+        ref.read(newsNotifierProvider.notifier).refresh();
+      });
+    } else if (state.isSearching) {
+      _wasSearching = true;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -50,12 +79,11 @@ class _NewsPageState extends ConsumerState<NewsPage> {
           tag: "logo",
           child: Material(
             color: Colors.transparent,
-            child: Lottie.asset(
+            child: Image.asset(
               AppAssets.logo,
               height: 200,
               width: 200,
               fit: BoxFit.contain,
-              repeat: true,
             ),
           ),
         ),

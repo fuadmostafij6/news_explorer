@@ -1,5 +1,6 @@
 import '../../domain/entities/news_entity.dart';
 import '../../domain/repository/news_repository.dart';
+import '../../../../core/error/exceptions.dart';
 import '../datasources/news_local_data_source.dart';
 import '../datasources/news_remote_data_source.dart';
 import '../models/news_model.dart';
@@ -25,9 +26,18 @@ class NewsRepositoryImpl implements NewsRepository {
         reset: resetCache,
       );
       return (response.results, response.nextPage);
-    } catch (_) {
-      final cached = await local.getCachedNews();
-      return (cached, null);
+    } on ServerException {
+      // Re-throw ServerException so provider can handle based on connectivity
+      rethrow;
+    } catch (e) {
+      // For other exceptions, try cache as fallback
+      try {
+        final cached = await local.getCachedNews();
+        return (cached, null);
+      } catch (_) {
+        // If cache also fails, re-throw the original exception
+        rethrow;
+      }
     }
   }
 
@@ -40,14 +50,24 @@ class NewsRepositoryImpl implements NewsRepository {
     try {
       final response = await remote.searchNews(query, nextPage, category);
       return (response.results, response.nextPage);
-    } catch (_) {
-      final cached = await local.getCachedNews();
-      final filtered = cached
-          .where(
-            (e) => (e.title ?? '').toLowerCase().contains(query.toLowerCase()),
-          )
-          .toList();
-      return (filtered, null);
+    } on ServerException {
+      // Only fallback to cache if we get a server exception
+      // Re-throw to let the provider handle it based on connectivity
+      rethrow;
+    } catch (e) {
+      // For other exceptions, try cache as fallback
+      try {
+        final cached = await local.getCachedNews();
+        final filtered = cached
+            .where(
+              (e) => (e.title ?? '').toLowerCase().contains(query.toLowerCase()),
+            )
+            .toList();
+        return (filtered, null);
+      } catch (_) {
+        // If cache also fails, re-throw the original exception
+        rethrow;
+      }
     }
   }
 

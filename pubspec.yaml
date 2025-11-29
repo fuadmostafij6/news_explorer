@@ -46,6 +46,7 @@ dependencies:
   phosphor_flutter: ^2.1.0
   figma_squircle:
   cached_network_image:
+  flutter_dotenv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,7 @@ flutter:
 
   assets:
     - assets/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:
