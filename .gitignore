@@ -47,6 +47,3 @@ app.*.map.json
 # Environment variables
 .env
 
-# Large video files
-video/*.mov
-video/*.mp4
