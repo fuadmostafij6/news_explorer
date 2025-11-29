@@ -2,6 +2,20 @@
 
 A Flutter news application built with Clean Architecture, featuring offline caching, pagination, and real-time search capabilities.
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="screen_shot/image1.jpeg" alt="Screenshot 1" width="200"/>
+  <img src="screen_shot/image2.jpeg" alt="Screenshot 2" width="200"/>
+  <img src="screen_shot/image3.jpeg" alt="Screenshot 3" width="200"/>
+</div>
+
+<div align="center">
+  <img src="screen_shot/image4.jpeg" alt="Screenshot 4" width="200"/>
+  <img src="screen_shot/image5.jpeg" alt="Screenshot 5" width="200"/>
+  <img src="screen_shot/image6.jpeg" alt="Screenshot 6" width="200"/>
+</div>
+
 ## 🎥 Demo
 
 > **Note:** A demo video (`video/newsExplorer.mov`) is available locally. Due to file size limitations, it's not included in the repository. You can:
