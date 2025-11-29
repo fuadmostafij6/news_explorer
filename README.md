@@ -23,14 +23,14 @@ A Flutter news application built with Clean Architecture, featuring offline cach
 <div align="center">
   
   <video width="100%" controls style="max-width: 800px; border-radius: 8px;">
-    <source src="https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/lib/video/newsExplorer.mp4" type="video/mp4">
+    <source src="https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/video/newsExplorer.mp4?token=GHSAT0AAAAAADP5YDE7PWTDFRDNIU625UCE2JLFW3A" type="video/mp4">
     Your browser does not support the video tag. 
-    <a href="https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/lib/video/newsExplorer.mp4">Download the video</a> to watch it.
+    <a href="https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/video/newsExplorer.mp4?token=GHSAT0AAAAAADP5YDE7PWTDFRDNIU625UCE2JLFW3A">Download the video</a> to watch it.
   </video>
   
   <br/><br/>
   
-  **📥 [Direct Download Link](https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/lib/video/newsExplorer.mp4)** (22MB)
+  **📥 [Direct Download Link](https://raw.githubusercontent.com/fuadmostafij6/news_explorer/refs/heads/master/video/newsExplorer.mp4?token=GHSAT0AAAAAADP5YDE7PWTDFRDNIU625UCE2JLFW3A)** (22MB)
   
 </div>
 
