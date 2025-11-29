@@ -2,6 +2,13 @@
 
 A Flutter news application built with Clean Architecture, featuring offline caching, pagination, and real-time search capabilities.
 
+## 🎥 Demo
+
+<video width="100%" controls>
+  <source src="video/newsExplorer.mov" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## 📱 Features
 
 - **News Feed**: Browse news articles by category with infinite scroll pagination
